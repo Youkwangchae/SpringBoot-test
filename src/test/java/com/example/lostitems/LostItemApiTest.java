@@ -64,7 +64,7 @@ class LostItemApiTest {
 
 		mockMvc.perform(patch("/items/{id}/return", id))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.status").value("RETURNED"));
+				.andExpect(jsonPath("$.status").value("STORED"));
 
 		mockMvc.perform(get("/items/{id}", id))
 				.andExpect(status().isOk())
