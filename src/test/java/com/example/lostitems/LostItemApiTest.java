@@ -89,6 +89,18 @@ class LostItemApiTest {
 				.andExpect(status().isConflict());
 	}
 
+	@Test
+	@DisplayName("필수값이 비면 400과 안내 메시지를 돌려준다")
+	void blankRequiredFieldReturnsBadRequestWithDetail() throws Exception {
+		String body = "{\"name\":\"\",\"building\":\"공학관\"}";
+
+		mockMvc.perform(post("/items")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(body))
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.detail").value("입력값을 확인해 주세요. 이름과 건물은 필수입니다."));
+	}
+
 	/** 물건을 등록하고 응답에 담긴 id를 돌려준다. */
 	private long register(String name, String building) throws Exception {
 		String body = """
