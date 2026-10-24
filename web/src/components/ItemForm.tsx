@@ -22,7 +22,7 @@ export function ItemForm({ onSubmit }: ItemFormProps) {
     setSubmitting(true)
     setError(null)
 
-    // 비워 둔 선택 항목은 보내지 않는다 (빈 문자열은 LocalDate 파싱에서 400이 된다)
+    // 비워 둔 선택 항목은 보내지 않는다 (빈 문자열이 그대로 저장되면 목록에서 '-' 대신 빈칸으로 보인다)
     const request: CreateItemRequest = { name: name.trim(), building: building.trim() }
     if (foundDate) request.foundDate = foundDate
     if (storage.trim()) request.storage = storage.trim()
